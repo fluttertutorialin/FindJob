@@ -8,10 +8,10 @@ import com.alex.findjob.localization.Vocabulary.localization
 import com.alex.findjob.screens.common.model.Message
 import com.alex.findjob.screens.common.model.UnknownExceptionMessage
 import com.alex.findjob.screens.common.model.UnknownHostMessage
-import kotlinx.coroutines.flow.filterIsInstance
 import com.alex.findjob.screens.common.view.ErrorDialogUI
 import com.alex.findjob.screens.common.view.errorUnknownHost
 import com.alex.findjob.screens.common.view.snackbarErrorDefault
+import kotlinx.coroutines.flow.filterIsInstance
 
 class MessageSideEffect(val message: Message? = null) : BaseSideEffect
 

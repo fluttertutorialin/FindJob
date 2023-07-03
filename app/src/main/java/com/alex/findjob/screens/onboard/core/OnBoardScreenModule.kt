@@ -2,8 +2,6 @@ package com.alex.findjob.screens.onboard.core
 
 import cafe.adriel.voyager.core.model.ScreenModel
 import cafe.adriel.voyager.hilt.ScreenModelKey
-import com.alex.findjob.screens.main.core.MainInteractor
-import com.alex.findjob.screens.main.core.MainInteractorImpl
 import com.alex.findjob.screens.onboard.OnBoardScreenModel
 import dagger.Binds
 import dagger.Module
