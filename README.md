@@ -7,7 +7,7 @@ Simple app on Jetpack Compose could find you a job.
 Api: https://developer.adzuna.com/overview, put your APP_ID and, APP_KEY in build.gradle (:network)<br />
 
 **Stack:** <br />
-- Jetpack Compose, <br />
+- Jetpack Compose <br />
 - MVVM<br />
 - Accompanist (https://github.com/google/accompanist)<br />
 - Hilt (https://dagger.dev/hilt/)<br />
