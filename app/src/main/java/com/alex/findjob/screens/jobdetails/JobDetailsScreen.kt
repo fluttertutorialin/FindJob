@@ -10,15 +10,15 @@ import com.alex.findjob.extensions.collectOnLaunch
 import com.alex.findjob.screens.common.MessageHost
 import com.alex.findjob.screens.common.NavigateSideEffect
 import com.alex.findjob.screens.common.handleSideEffect
-import com.alex.findjob.screens.main.model.Job
+import com.alex.findjob.screens.main.model.JobModel
 import kotlinx.coroutines.flow.filterIsInstance
 
-class JobDetailsScreen(private val jobItem: Job) : Screen {
+class JobDetailsScreen(private val jobModelItem: JobModel) : Screen {
     @Composable
     override fun Content() {
         val screenModel: JobDetailsScreenModel =
             getScreenModel<JobDetailsScreenModel, JobDetailsScreenModel.Factory> { factory ->
-                factory.create(jobItem)
+                factory.create(jobModelItem)
             }
         val state by screenModel.stateFlow.collectAsState()
         val navigator = LocalNavigator.current

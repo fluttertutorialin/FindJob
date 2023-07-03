@@ -1,21 +1,19 @@
 package com.alex.findjob.screens.jobdetails
 
-import android.util.Log
 import cafe.adriel.voyager.hilt.ScreenModelFactory
 import com.alex.findjob.screens.common.BaseScreenModel
 import com.alex.findjob.screens.common.popNavigateEffect
-import com.alex.findjob.screens.main.model.Job
+import com.alex.findjob.screens.main.model.JobModel
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 
 class JobDetailsScreenModel @AssistedInject constructor(
-    @Assisted val jobItem: Job
-) : BaseScreenModel<JobDetailsScreenState>(JobDetailsScreenState(jobItem)) {
+    @Assisted val jobModelItem: JobModel
+) : BaseScreenModel<JobDetailsScreenState>(JobDetailsScreenState(jobModelItem)) {
 
     init {
-        updateState { copy(data = jobItem) }
-        Log.e("TAG", "data: $jobItem ", )
+        updateState { copy(data = jobModelItem) }
     }
 
     fun onBackClick() {
@@ -26,6 +24,6 @@ class JobDetailsScreenModel @AssistedInject constructor(
 
     @AssistedFactory
     interface Factory : ScreenModelFactory {
-        fun create(jobItem: Job): JobDetailsScreenModel
+        fun create(jobModelItem: JobModel): JobDetailsScreenModel
     }
 }

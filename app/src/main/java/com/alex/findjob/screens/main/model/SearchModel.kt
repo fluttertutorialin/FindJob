@@ -6,5 +6,6 @@ data class SearchModel(
     val locationTag: String = "",
     val fullTimeTag: Boolean = true,
     val partTimeTag: Boolean = false,
-    val page: Int = 1
+    val page: Int = 1,
+    val resultsPerPage: Int = 20
 )

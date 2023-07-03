@@ -65,3 +65,10 @@ val nothingHere = Translatable(
         Locale.ENGLISH to "Nothing here, please change request..."
     )
 )
+
+val salaryIsNotSpecified = Translatable(
+    "Зарплата не указана",
+    hashMapOf(
+        Locale.ENGLISH to "Salary is not specified"
+    )
+)

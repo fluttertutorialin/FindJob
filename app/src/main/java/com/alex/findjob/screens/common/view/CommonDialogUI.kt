@@ -26,7 +26,7 @@ fun CommonDialogUI(
                 Text(
                     text = (declineTitle ?: localization.cancel()).uppercase(),
                     style = MaterialTheme.typography.h4.copy(
-                        color = AppColors.Accent200,
+                        color = AppColors.MainBlueColor,
                         fontSize = 14.sp
                     )
                 )
@@ -38,7 +38,7 @@ fun CommonDialogUI(
                     Text(
                         text = (confirmTitle ?: localization.ok()).uppercase(),
                         style = MaterialTheme.typography.h4.copy(
-                            color = AppColors.Accent200,
+                            color = AppColors.MainBlueColor,
                             fontSize = 14.sp
                         )
                     )

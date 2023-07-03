@@ -8,8 +8,6 @@ import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.graphics.Color
 
-// TODO: clear
-private val Accent200 = Color(0xFF2723D3)
 private val White = Color(0xFFFFFFFF)
 private val Black = Color(0xFF000000)
 private val MainBlueColor = Color(0xFF1C58F2)
@@ -23,14 +21,8 @@ private val GreyTextColor = Color(0xFF6B6B6B)
 private val DividerColor = Color(0x80EDEDED)
 private val LightGreyColor = Color(0xFFF5F7FC)
 
-private val EntriesBackground = Color(0xFFF9F9F9)
-private val GreyBackgroundColor = Color(0xFFF7F7F7)
-private val NameOfDayCalendarColor = Color(0xFF6B6B6B)
-private val WeekendCalendarColor = Color(0xFF9A9A9A)
-
 @Immutable
 data class AppSpecificColors(
-    val accent200: Color,
     val onboard1Background: Color,
     val onboard2Background: Color,
     val onboard3Background: Color,
@@ -39,19 +31,14 @@ data class AppSpecificColors(
     val buttonOnboard3Text: Color,
     val white: Color,
     val black: Color,
-    val mainBlueColor: Color,
-    val entriesBackground: Color,
     val greyTextColor: Color,
     val dividerColor: Color,
-    val greyBackgroundColor: Color,
-    val nameOfDayCalendarColor: Color,
-    val weekendCalendarColor: Color,
-    val lightGreyColor: Color
+    val lightGreyColor: Color,
+    val mainBlueColor: Color
 )
 
 private val LocalAppSpecificColors = staticCompositionLocalOf {
     AppSpecificColors(
-        accent200 = Accent200,
         onboard1Background = Onboard1Background,
         onboard2Background = Onboard2Background,
         onboard3Background = Onboard3Background,
@@ -60,19 +47,14 @@ private val LocalAppSpecificColors = staticCompositionLocalOf {
         buttonOnboard3Text = ButtonOnboard3Text,
         white = White,
         black = Black,
-        mainBlueColor = MainBlueColor,
-        entriesBackground = EntriesBackground,
         greyTextColor = GreyTextColor,
         dividerColor = DividerColor,
-        greyBackgroundColor = GreyBackgroundColor,
-        nameOfDayCalendarColor = NameOfDayCalendarColor,
-        weekendCalendarColor = WeekendCalendarColor,
-        lightGreyColor = LightGreyColor
+        lightGreyColor = LightGreyColor,
+        mainBlueColor = MainBlueColor
     )
 }
 
 private val darkAppSpecificColors = AppSpecificColors(
-    accent200 = Accent200,
     onboard1Background = Onboard1Background,
     onboard2Background = Onboard2Background,
     onboard3Background = Onboard3Background,
@@ -81,18 +63,13 @@ private val darkAppSpecificColors = AppSpecificColors(
     buttonOnboard3Text = ButtonOnboard3Text,
     white = White,
     black = Black,
-    mainBlueColor = MainBlueColor,
-    entriesBackground = EntriesBackground,
     greyTextColor = GreyTextColor,
     dividerColor = DividerColor,
-    greyBackgroundColor = GreyBackgroundColor,
-    nameOfDayCalendarColor = NameOfDayCalendarColor,
-    weekendCalendarColor = WeekendCalendarColor,
-    lightGreyColor = LightGreyColor
+    lightGreyColor = LightGreyColor,
+    mainBlueColor = MainBlueColor
 )
 
 private val lightAppSpecificColors = AppSpecificColors(
-    accent200 = Accent200,
     onboard1Background = Onboard1Background,
     onboard2Background = Onboard2Background,
     onboard3Background = Onboard3Background,
@@ -101,18 +78,13 @@ private val lightAppSpecificColors = AppSpecificColors(
     buttonOnboard3Text = ButtonOnboard3Text,
     white = White,
     black = Black,
-    mainBlueColor = MainBlueColor,
-    entriesBackground = EntriesBackground,
     greyTextColor = GreyTextColor,
     dividerColor = DividerColor,
-    greyBackgroundColor = GreyBackgroundColor,
-    nameOfDayCalendarColor = NameOfDayCalendarColor,
-    weekendCalendarColor = WeekendCalendarColor,
-    lightGreyColor = LightGreyColor
+    lightGreyColor = LightGreyColor,
+    mainBlueColor = MainBlueColor
 )
 
 object AppColors {
-    val Accent200: Color @Composable get() = AppTheme.colors.accent200
     val Onboard1Background: Color @Composable get() = AppTheme.colors.onboard1Background
     val Onboard2Background: Color @Composable get() = AppTheme.colors.onboard2Background
     val Onboard3Background: Color @Composable get() = AppTheme.colors.onboard3Background
@@ -124,11 +96,7 @@ object AppColors {
     val MainBlueColor: Color @Composable get() = AppTheme.colors.mainBlueColor
     val GreyTextColor: Color @Composable get() = AppTheme.colors.greyTextColor
     val DividerColor: Color @Composable get() = AppTheme.colors.dividerColor
-    val LightGreyColor @Composable get() = AppTheme.colors.lightGreyColor
-    val EntriesBackground: Color @Composable get() = AppTheme.colors.entriesBackground
-    val GreyBackgroundColor @Composable get() = AppTheme.colors.greyBackgroundColor
-    val NameOfDayCalendarColor @Composable get() = AppTheme.colors.nameOfDayCalendarColor
-    val WeekendCalendarColor @Composable get() = AppTheme.colors.weekendCalendarColor
+    val LightGreyColor: Color @Composable get() = AppTheme.colors.lightGreyColor
 }
 
 @Composable

@@ -6,5 +6,5 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class JobCompanyResponse(
     @SerialName("display_name")
-    val displayName: String
+    val displayName: String? = null
 )

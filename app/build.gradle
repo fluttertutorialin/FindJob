@@ -1,7 +1,7 @@
 plugins {
+    id 'kotlin-kapt'
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
-    id 'kotlin-kapt'
     id 'dagger.hilt.android.plugin'
 }
 
@@ -85,4 +85,7 @@ dependencies {
     implementation "androidx.compose.ui:ui-tooling-preview:1.4.1"
     implementation "androidx.constraintlayout:constraintlayout-compose:$constraintLayoutComposeVerion"
     implementation "androidx.datastore:datastore-preferences:$datastorePrefrencesVersion"
+    implementation "androidx.paging:paging-runtime:$pagingVersion"
+    implementation "androidx.paging:paging-compose:1.0.0-alpha18"
+
 }

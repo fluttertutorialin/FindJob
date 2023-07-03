@@ -12,7 +12,6 @@ import kotlinx.coroutines.CoroutineStart
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.SupervisorJob
-import kotlinx.coroutines.cancelChildren
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -30,7 +29,7 @@ abstract class BaseScreenModel<STATE>(initialState: STATE) : ScreenModel, Corout
     val stateFlow: StateFlow<STATE> = mutableStateFlow.asStateFlow()
     val state: STATE get() = stateFlow.value
 
-    private val mutableSideEffectFlow: MutableSharedFlow<BaseSideEffect> by lazy {
+    protected val mutableSideEffectFlow: MutableSharedFlow<BaseSideEffect> by lazy {
         MutableSharedFlow(
             extraBufferCapacity = 1,
             onBufferOverflow = BufferOverflow.DROP_OLDEST,
@@ -71,7 +70,7 @@ abstract class BaseScreenModel<STATE>(initialState: STATE) : ScreenModel, Corout
         block(this)
     }
 
-    private fun onError(throwable: Throwable) {
+    protected fun onError(throwable: Throwable) {
         if (throwable !is CancellationException) {
             Napier.e(throwable.message.orEmpty(), throwable)
             mutableSideEffectFlow.tryEmit(

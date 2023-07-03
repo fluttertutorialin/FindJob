@@ -15,5 +15,7 @@ data class SearchRequest(
     val fullTimeTag: Boolean,
     @SerialName("part_time_tag")
     val partTimeTag: Boolean,
-    val page: Int
+    val page: Int,
+    @SerialName("results_per_page")
+    val resultsPerPage: Int
 )

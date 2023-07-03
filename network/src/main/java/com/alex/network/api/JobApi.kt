@@ -19,6 +19,7 @@ class JobApi @Inject constructor(
         {
             parameter("app_id", APP_ID)
             parameter("app_key", APP_KEY)
+            parameter("results_per_page", request.resultsPerPage)
             parameter("what", request.searchTag)
             parameter("where", request.locationTag)
             if (request.fullTimeTag) parameter("full_time", request.fullTimeTag.compareTo(false))

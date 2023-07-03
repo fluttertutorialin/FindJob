@@ -7,18 +7,20 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.paging.LoadState
+import androidx.paging.compose.collectAsLazyPagingItems
+import androidx.paging.compose.items
 import com.alex.findjob.R
 import com.alex.findjob.localization.Vocabulary.localization
 import com.alex.findjob.screens.common.view.TopBarRowUI
 import com.alex.findjob.screens.common.view.TransparentBlackStatusBarUI
-import com.alex.findjob.screens.main.model.Job
+import com.alex.findjob.screens.main.model.JobModel
 import com.alex.findjob.screens.main.view.MainBackPressHandler
 import com.alex.findjob.screens.main.view.MainScreenFilterUI
 import com.alex.findjob.screens.main.view.MainScreenJobItemUi
@@ -31,7 +33,7 @@ import com.google.accompanist.insets.statusBarsPadding
 @Composable
 fun MainScreenUI(
     state: MainScreenState,
-    onItemClick: (Job) -> Unit,
+    onItemClick: (JobModel) -> Unit,
     onFilterClick: () -> Unit,
     onSearchClick: () -> Unit,
     onJobTagChange: (String) -> Unit,
@@ -40,6 +42,7 @@ fun MainScreenUI(
     onFullTimeClick: () -> Unit,
     onPartTimeClick: () -> Unit
 ) {
+    val jobs = state.data?.collectAsLazyPagingItems()
     TransparentBlackStatusBarUI()
     Column(
         modifier = Modifier
@@ -58,23 +61,26 @@ fun MainScreenUI(
             onClickRightImage = onFilterClick
         )
         Box(modifier = Modifier.fillMaxSize()) {
-            if (state.data?.results?.isNotEmpty() == true) {
                 LazyColumn(
                     modifier = Modifier
                         .padding(horizontal = 8.dp, vertical = 4.dp),
                     verticalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
-                    items(items = state.data.results) { jobItem ->
-                        MainScreenJobItemUi(jobItem, onItemClick)
+                    jobs?.let {
+                        items(items = jobs) { jobItem ->
+                            jobItem?.let { it1 -> MainScreenJobItemUi(it1, onItemClick) }
+                        }
                     }
                 }
-            } else Box(
+            if (jobs?.loadState?.refresh is LoadState.Loading) Box(
                 modifier = Modifier.fillMaxSize(),
                 contentAlignment = Alignment.Center
             ) { CircularProgressIndicator(color = AppColors.MainBlueColor) }
 
-            if (state.showDataIsEmpty) Box(
-                modifier = Modifier.fillMaxSize().background(AppColors.LightGreyColor),
+            if (state.isDataEmpty) Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(AppColors.LightGreyColor),
                 contentAlignment = Alignment.Center
             ) { Text(text = localization.nothingHere()) }
 
@@ -97,4 +103,3 @@ fun MainScreenUI(
     }
     MainBackPressHandler(state, onBackPressed = onFilterClick)
 }
-

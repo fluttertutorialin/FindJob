@@ -4,15 +4,23 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class JobResponse(
+data class JobsResponseForCache(
+    @SerialName("count")
+    val count: Int,
+    @SerialName("results")
+    val results: List<JobResponseForCache>?,
+)
+
+@Serializable
+data class JobResponseForCache(
     @SerialName("category")
-    val category: JobCategoryResponse? = null,
+    val category: JobCategoryResponseForCache? = null,
     @SerialName("salary_max")
     val salaryMax: Double? = null,
     @SerialName("location")
-    val location: JobLocationResponse? = null,
+    val location: JobLocationResponseForCache? = null,
     @SerialName("company")
-    val company: JobCompanyResponse? = null,
+    val company: JobCompanyResponseForCache? = null,
     @SerialName("title")
     val title: String? = null,
     @SerialName("salary_is_predicted")
@@ -35,4 +43,26 @@ data class JobResponse(
     val salaryMin: Double? = null,
     @SerialName("salary")
     val salary: String? = null
+)
+
+@Serializable
+data class JobCategoryResponseForCache(
+    @SerialName("label")
+    val label: String? = null,
+    @SerialName("tag")
+    val tag: String? = null
+)
+
+@Serializable
+data class JobLocationResponseForCache(
+    @SerialName("area")
+    val area: List<String>? = null,
+    @SerialName("display_name")
+    val displayName: String? = null
+)
+
+@Serializable
+data class JobCompanyResponseForCache(
+    @SerialName("display_name")
+    val displayName: String? = null
 )

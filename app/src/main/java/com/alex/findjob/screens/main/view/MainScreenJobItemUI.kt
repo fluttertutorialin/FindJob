@@ -17,11 +17,12 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.alex.findjob.screens.main.model.Job
+import com.alex.findjob.localization.Vocabulary.localization
+import com.alex.findjob.screens.main.model.JobModel
 import com.alex.findjob.ui.theme.AppColors
 
 @Composable
-fun MainScreenJobItemUi(item: Job, onItemClick: (Job) -> Unit) {
+fun MainScreenJobItemUi(item: JobModel, onItemClick: (JobModel) -> Unit) {
     Box(
         modifier = Modifier
             .clip(shape = RoundedCornerShape(16.dp))
@@ -43,7 +44,9 @@ fun MainScreenJobItemUi(item: Job, onItemClick: (Job) -> Unit) {
                 thickness = 2.dp
             )
             item.location?.displayName?.let { Text(text = it) }
-            item.salary?.let { Text(text = it, color = AppColors.MainBlueColor) }
+            if (item.salaryIsPredicted == 0)
+                Text(text = localization.salaryIsNotSpecified(), color = AppColors.MainBlueColor)
+            else item.salary?.let { Text(text = it, color = AppColors.MainBlueColor) }
         }
     }
 }

@@ -3,38 +3,6 @@ package com.alex.findjob.screens.common
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.Navigator
 
-// TODO: clear
-sealed interface BottomSheetNavigateSideEffect : BaseSideEffect {
-    object Hide : BottomSheetNavigateSideEffect
-    class PopWithCollapsing(
-        val ignoreHalfExpandedState: Boolean = false
-    ) : BottomSheetNavigateSideEffect
-    class PopUntilWithCollapsing(
-        val untilExpression: (Screen) -> Boolean,
-        val ignoreHalfExpandedState: Boolean = false
-    ) : BottomSheetNavigateSideEffect
-    class Show(val screen: Screen) : BottomSheetNavigateSideEffect
-    class ShowWithCollapsing(
-        val screens: List<Screen>,
-        val ignoreHalfExpandedState: Boolean = false
-    ) : BottomSheetNavigateSideEffect
-    class PushWithCollapsing(
-        val screen: Screen,
-        val ignoreHalfExpandedState: Boolean = true
-    ) : BottomSheetNavigateSideEffect
-}
-
-fun BottomSheetNavigateSideEffect.isPopSideEffect(): Boolean {
-    return this is BottomSheetNavigateSideEffect.Hide ||
-            this is BottomSheetNavigateSideEffect.PopWithCollapsing ||
-            this is BottomSheetNavigateSideEffect.PopUntilWithCollapsing
-}
-
-sealed interface ModalBottomSheetNavigateSideEffect : BaseSideEffect {
-    object Hide : ModalBottomSheetNavigateSideEffect
-    class Show(val screen: Screen) : ModalBottomSheetNavigateSideEffect
-}
-
 sealed interface NavigateSideEffect : BaseSideEffect {
     class Push(val screen: Screen) : NavigateSideEffect
     class Replace(val screen: Screen) : NavigateSideEffect

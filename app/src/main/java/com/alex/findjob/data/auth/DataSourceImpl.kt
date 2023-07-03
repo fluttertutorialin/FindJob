@@ -8,9 +8,8 @@ import com.alex.findjob.di.lastSearchRequest
 import com.alex.findjob.di.lastSearchResponse
 import com.alex.findjob.di.nameStoreKey
 import com.alex.findjob.extensions.get
-import com.alex.findjob.screens.main.model.SearchModel
 import com.alex.network.request.SearchRequest
-import com.alex.network.response.jobs.JobsResponse
+import com.alex.network.response.jobs.JobsResponseForCache
 import kotlinx.serialization.json.Json
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -33,9 +32,10 @@ class DataSourceImpl @Inject constructor(
     override suspend fun getFirstRunStatus(): Boolean = dataStore.get(firstRunKey, true)
 
 
-    override suspend fun saveLastSearchResponse(jobsResponse: JobsResponse) {
+    override suspend fun saveLastSearchResponse(jobsResponse: JobsResponseForCache) {
         dataStore.edit {
-            it[lastSearchResponse] = Json.encodeToString(JobsResponse.serializer(), jobsResponse)
+            it[lastSearchResponse] =
+                Json.encodeToString(JobsResponseForCache.serializer(), jobsResponse)
         }
     }
 
@@ -44,11 +44,20 @@ class DataSourceImpl @Inject constructor(
             it[lastSearchRequest] = Json.encodeToString(SearchRequest.serializer(), searchModel)
         }
     }
+//
+//    override suspend fun getLastSearchResponse(): JobsResponse {
+//        val jsonBuilder = Json { ignoreUnknownKeys = true }
+//        return jsonBuilder.decodeFromString(
+//            JobsResponse.serializer(), dataStore.get(
+//                lastSearchResponse, ""
+//            )
+//        )
+//    }
 
-    override suspend fun getLastSearchResponse(): JobsResponse {
+    override suspend fun getLastSearchResponse(): JobsResponseForCache {
         val jsonBuilder = Json { ignoreUnknownKeys = true }
         return jsonBuilder.decodeFromString(
-            JobsResponse.serializer(), dataStore.get(
+            JobsResponseForCache.serializer(), dataStore.get(
                 lastSearchResponse, ""
             )
         )

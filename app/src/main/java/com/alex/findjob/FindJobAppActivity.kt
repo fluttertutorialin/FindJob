@@ -8,9 +8,9 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.core.view.WindowCompat
 import cafe.adriel.voyager.navigator.Navigator
+import com.alex.findjob.extensions.checkEnLocale
 import com.alex.findjob.localization.Localization
-import com.alex.findjob.screens.main.MainScreen
-import com.alex.findjob.screens.onboard.OnBoardScreen
+import com.alex.findjob.localization.registerSupportedLocales
 import com.alex.findjob.screens.splash.SplashScreen
 import com.alex.findjob.ui.theme.AppTheme
 import com.google.accompanist.insets.ProvideWindowInsets
@@ -24,18 +24,17 @@ class FindJobAppActivity : ComponentActivity() {
         WindowCompat.setDecorFitsSystemWindows(window, false)
         super.onCreate(savedInstanceState)
         setContent {
-            val locale by remember {
-                mutableStateOf(Locale(Locale.ENGLISH.toString()))
-            }
+            val currentLocale = Locale.getDefault().checkEnLocale()
+            val locale by remember { mutableStateOf(currentLocale) }
+            registerSupportedLocales(currentLocale)
             Localization(locale = locale) {
-                // TODO: clear
-//                registerSupportedLocales(Locale.ENGLISH)
                 AppTheme(darkTheme = false) {
-                    ProvideWindowInsets(windowInsetsAnimationsEnabled = true, consumeWindowInsets = true) {
+                    ProvideWindowInsets(windowInsetsAnimationsEnabled = true) {
                         Navigator(SplashScreen())
                     }
                 }
             }
         }
     }
+
 }

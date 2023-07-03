@@ -1,11 +1,11 @@
 package com.alex.findjob.screens.main.core
 
-import com.alex.findjob.screens.main.model.Jobs
+import com.alex.findjob.screens.main.model.JobsModel
 import com.alex.findjob.screens.main.model.SearchModel
 
 interface MainInteractor {
 
-    suspend fun getJobs(searchModel: SearchModel): Jobs
+    suspend fun getJobs(searchModel: SearchModel): JobsModel
 
     suspend fun getUserName(): String
 
@@ -13,7 +13,7 @@ interface MainInteractor {
 
     suspend fun getFirstRunStatus(): Boolean
 
-    suspend fun getLastSearchResponse(): Jobs
+    suspend fun getLastSearchResponse(): JobsModel
 
     suspend fun getLastSearchRequest(): SearchModel
 

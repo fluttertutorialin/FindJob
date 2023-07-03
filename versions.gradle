@@ -17,4 +17,5 @@ ext {
     constraintLayoutComposeVerion = "1.0.0"
     datastorePrefrencesVersion = "1.0.0"
     dataStoreCoreVersion = "1.0.0"
+    pagingVersion = "3.1.1"
 }

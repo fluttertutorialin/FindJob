@@ -1,7 +1,7 @@
 package com.alex.findjob.data.auth
 
 import com.alex.network.request.SearchRequest
-import com.alex.network.response.jobs.JobsResponse
+import com.alex.network.response.jobs.JobsResponseForCache
 
 interface DataSource {
 
@@ -13,9 +13,9 @@ interface DataSource {
 
     suspend fun getFirstRunStatus(): Boolean
 
-    suspend fun saveLastSearchResponse(jobsResponse: JobsResponse)
+    suspend fun saveLastSearchResponse(jobsResponse: JobsResponseForCache)
 
-    suspend fun getLastSearchResponse(): JobsResponse
+    suspend fun getLastSearchResponse(): JobsResponseForCache
 
     suspend fun saveLastSearchRequest(searchModel: SearchRequest)
 

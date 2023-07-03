@@ -31,3 +31,9 @@ val postedOn = Translatable(
     )
 )
 
+val link = Translatable(
+    "Ссылка на Adzuna.com",
+    hashMapOf(
+        Locale.ENGLISH to "Link on Adzuna.com"
+    )
+)

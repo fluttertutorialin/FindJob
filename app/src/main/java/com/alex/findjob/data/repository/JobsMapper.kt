@@ -1,35 +1,20 @@
 package com.alex.findjob.data.repository
 
-import com.alex.findjob.localization.russianLocale
-import com.alex.findjob.screens.main.model.Job
 import com.alex.findjob.screens.main.model.JobCategory
 import com.alex.findjob.screens.main.model.JobCompany
 import com.alex.findjob.screens.main.model.JobLocation
-import com.alex.findjob.screens.main.model.Jobs
+import com.alex.findjob.screens.main.model.JobModel
+import com.alex.findjob.screens.main.model.JobsModel
 import com.alex.findjob.screens.main.model.SearchModel
 import com.alex.network.request.SearchRequest
-import com.alex.network.response.jobs.JobCategoryResponse
-import com.alex.network.response.jobs.JobCompanyResponse
-import com.alex.network.response.jobs.JobLocationResponse
-import com.alex.network.response.jobs.JobResponse
-import com.alex.network.response.jobs.JobsResponse
-import java.text.SimpleDateFormat
-import java.time.LocalDateTime
-import java.time.ZoneId
-import java.util.Locale
+import com.alex.network.response.jobs.JobCategoryResponseForCache
+import com.alex.network.response.jobs.JobCompanyResponseForCache
+import com.alex.network.response.jobs.JobLocationResponseForCache
+import com.alex.network.response.jobs.JobResponseForCache
+import com.alex.network.response.jobs.JobsResponseForCache
 import javax.inject.Inject
 
 class JobsMapper @Inject constructor() {
-
-    fun mapSearchModelToSearchRequest(searchModel: SearchModel): SearchRequest =
-        SearchRequest(
-            countryTag = searchModel.countryTag,
-            searchTag = searchModel.searchTag,
-            locationTag = searchModel.locationTag,
-            fullTimeTag = searchModel.fullTimeTag,
-            partTimeTag = searchModel.partTimeTag,
-            page = searchModel.page
-        )
 
     fun mapSearchRequestToSearchModel(searchRequest: SearchRequest): SearchModel =
         SearchModel(
@@ -38,28 +23,31 @@ class JobsMapper @Inject constructor() {
             locationTag = searchRequest.locationTag,
             fullTimeTag = searchRequest.fullTimeTag,
             partTimeTag = searchRequest.partTimeTag,
-            page = searchRequest.page
+            page = searchRequest.page,
+            resultsPerPage = searchRequest.resultsPerPage
         )
 
-    fun mapJobsResponseToJobs(jobsResponse: JobsResponse): Jobs =
-        Jobs(
+    fun mapJobsResponseToJobs(jobsResponse: JobsResponseForCache): JobsModel =
+        JobsModel(
             count = jobsResponse.count,
             results = jobsResponse.results?.let { mapListJobResponseToListJob(it) }
         )
 
-    private fun mapListJobResponseToListJob(jobListResponse: List<JobResponse>): List<Job> {
-        val jobList = ArrayList<Job>()
+    private fun mapListJobResponseToListJob(
+        jobListResponse: List<JobResponseForCache>,
+    ): List<JobModel> {
+        val jobModelList = ArrayList<JobModel>()
         for (i in jobListResponse.indices) {
-            jobList.add(mapJobResponseToJob(jobListResponse[i]))
+            jobModelList.add(mapJobResponseToJob(jobListResponse[i]))
         }
-        return jobList
+        return jobModelList
     }
 
-    private fun mapJobResponseToJob(jobResponse: JobResponse): Job =
-        Job(
-            category = jobResponse.category?.let { mapJobCategoryResponseToJobsPagesInfo(it) },
-            location = jobResponse.location?.let { mapJobLocationResponseToJobLocationInfo(it) },
-            company = jobResponse.company?.let { mapJobCompanyResponseToJobCompanyInfo(it) },
+    private fun mapJobResponseToJob(jobResponse: JobResponseForCache): JobModel =
+        JobModel(
+            category = jobResponse.category?.let { mapJobCategoryResponseToJobCategory(it) },
+            location = jobResponse.location?.let { mapJobLocationResponseToJobLocation(it) },
+            company = jobResponse.company?.let { mapJobCompanyResponseToJobCompany(it) },
             salaryMax = jobResponse.salaryMax,
             title = jobResponse.title,
             salaryIsPredicted = jobResponse.salaryIsPredicted,
@@ -68,37 +56,27 @@ class JobsMapper @Inject constructor() {
             contractTime = jobResponse.contractTime,
             adref = jobResponse.adref,
             contractType = jobResponse.contractType,
-            created = jobResponse.created?.let {
-                getLocalDateTime(it).dayOfMonth.toString() + " " +
-                        getLocalDateTime(it).month.toString().lowercase(Locale.getDefault()) + " " +
-                        getLocalDateTime(it).year.toString()
-            },
+            created = jobResponse.created,
             id = jobResponse.id,
             salaryMin = jobResponse.salaryMin,
-            salary = jobResponse.salaryMin?.toInt()
-                .toString() + " - " + jobResponse.salaryMax?.toInt().toString()
+            salary = jobResponse.salary
         )
 
-    private fun mapJobCategoryResponseToJobsPagesInfo(jobCategoryResponse: JobCategoryResponse): JobCategory =
+    private fun mapJobCategoryResponseToJobCategory(jobCategoryResponse: JobCategoryResponseForCache): JobCategory =
         JobCategory(
             label = jobCategoryResponse.label,
             tag = jobCategoryResponse.tag
         )
 
-    private fun mapJobLocationResponseToJobLocationInfo(jobLocationResponse: JobLocationResponse): JobLocation =
+    private fun mapJobLocationResponseToJobLocation(jobLocationResponse: JobLocationResponseForCache): JobLocation =
         JobLocation(
             area = jobLocationResponse.area,
             displayName = jobLocationResponse.displayName
         )
 
-    private fun mapJobCompanyResponseToJobCompanyInfo(jobCompanyResponse: JobCompanyResponse): JobCompany =
+    private fun mapJobCompanyResponseToJobCompany(jobCompanyResponse: JobCompanyResponseForCache): JobCompany =
         JobCompany(
             displayName = jobCompanyResponse.displayName,
         )
 
-    private fun getLocalDateTime(date: String): LocalDateTime {
-        val pattern = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", russianLocale)
-        return pattern.parse(date)!!.toInstant().atZone(ZoneId.systemDefault())
-            .toLocalDateTime()
-    }
 }

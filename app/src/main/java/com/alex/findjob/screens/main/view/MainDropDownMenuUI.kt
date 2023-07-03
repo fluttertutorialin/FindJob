@@ -29,9 +29,9 @@ import com.alex.findjob.ui.theme.AppColors
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun MainDropDownMenuUI(onChooseCountry: (String) -> Unit) {
+fun MainDropDownMenuUI(onChooseCountry: (String) -> Unit, lastSearchCountry: String) {
     var expanded by remember { mutableStateOf(false) }
-    var selectedItem by remember { mutableStateOf(countries["gb"]) }
+    var selectedItem by remember { mutableStateOf(countries[lastSearchCountry]) }
 
     ExposedDropdownMenuBox(
         expanded = expanded,
@@ -48,7 +48,7 @@ fun MainDropDownMenuUI(onChooseCountry: (String) -> Unit) {
                         shape = RoundedCornerShape(16.dp)
                     ),
                 readOnly = true,
-                value = it, //TODO взять из state прошлого запроса?
+                value = it,
                 onValueChange = {},
                 trailingIcon = {
                     IconButton(onClick = { }) {

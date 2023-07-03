@@ -1,26 +1,7 @@
 package com.alex.findjob.screens.common.view
 
-import com.alex.findjob.localization.NonTranslatable
 import com.alex.findjob.localization.Translatable
 import java.util.Locale
-
-// TODO:
-val ru = NonTranslatable("RU")
-val en = NonTranslatable("EN")
-
-val yes = Translatable(
-    "Да",
-    hashMapOf(
-        Locale.ENGLISH to "Yes"
-    )
-)
-
-val no = Translatable(
-    "Нет",
-    hashMapOf(
-        Locale.ENGLISH to "No"
-    )
-)
 
 val ok = Translatable(
     "Ок",
@@ -30,16 +11,16 @@ val ok = Translatable(
 )
 
 val snackbarErrorDefault = Translatable(
-    "Произошла ошибка, попробуйте еще раз",
+    "Произошла ошибка, попробуйте еще раз позднее",
     hashMapOf(
-        Locale.ENGLISH to "Произошла ошибка, попробуйте еще раз"
+        Locale.ENGLISH to "An error has occurred, please try again later"
     )
 )
 
 val errorUnknownHost = Translatable(
     "Отсутствует соединение с интернетом",
     hashMapOf(
-        Locale.ENGLISH to "Отсутствует соединение с интернетом"
+        Locale.ENGLISH to "No internet connection"
     )
 )
 
